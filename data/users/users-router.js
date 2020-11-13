@@ -34,7 +34,8 @@ router.post('/register', async (req, res, next) => {
     const newUser = await Users.add({username, password: await bcrypt.hash(password, 14), phoneNumber})
     return res.status(201).json(newUser)
   } catch(err) {
-    return res.status(404).json({message: err})
+    console.log('Error from BackEnd')
+    return res.status(404).json({message: "Error from backend ", err})
   }
 });
 
