@@ -34,7 +34,7 @@ router.post('/register', async (req, res, next) => {
     const newUser = await Users.add({username, password: await bcrypt.hash(password, 14), phoneNumber})
     return res.status(201).json(newUser)
   } catch(err) {
-    next(err)
+    return res.status(404).json({message: err})
   }
 });
 
