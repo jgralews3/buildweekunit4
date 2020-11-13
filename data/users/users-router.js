@@ -26,9 +26,9 @@ router.get('/:id', async(req, res, next) => {
 router.post('/register', async (req, res, next) => {
   try {
     const {username, password, phoneNumber} = req.body
-    if(!username){return res.status(400).json({message: "Please input username"})}
-    if(!password){return res.status(400).json({message: "Please input password"})}
-    if(!phoneNumber || phoneNumber.length !== 11){return res.status(400).json({message: "Please input valid 10 digit phone number"})}
+    if(!username){return res.status(401).json({message: "Please input username"})}
+    if(!password){return res.status(401).json({message: "Please input password"})}
+    if(!phoneNumber || phoneNumber.length !== 10){return res.status(401).json({message: "Please input valid 10 digit phone number"})}
     const user = await Users.findBy({username}).first()
     if (user){return res.status(409).json({message: "Username already taken"})}
     const newUser = await Users.add({username, password: await bcrypt.hash(password, 14), phoneNumber})
